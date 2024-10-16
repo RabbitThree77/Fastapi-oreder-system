@@ -5,12 +5,16 @@ from fastapi import FastAPI, status, Request
 from pydantic import BaseModel, Json
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from dotenv import load_dotenv
+import os
 
+
+load_dotenv()
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-client = InferenceClient(api_key="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")
+client = InferenceClient(api_key=os.getenv("TOKEN"))
 
 
 def addToDB(obj):
