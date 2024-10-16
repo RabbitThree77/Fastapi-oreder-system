@@ -1,0 +1,22 @@
+{
+    "orders": [
+        {
+            "foods": [
+                "Fish Filet",
+                "Fish Filet",
+                "Fish Filet",
+                "steak"
+            ],
+            "drinks": [],
+            "method": "basic"
+        },
+        {
+            "foods": [
+                "steak",
+                "French Fries"
+            ],
+            "drinks": [],
+            "method": "basic"
+        }
+    ]
+}

@@ -1,0 +1,109 @@
+<html>
+
+<head>
+  <title>Speech to text</title>
+</head>
+
+<body>
+  <div class="speaker"
+    style="display: flex;justify-content: space-between;width: 13rem;box-shadow: 0 0 13px #0000003d;border-radius: 5px;">
+    <p id="action" style="color: grey;font-weight: 800; padding: 0; padding-left: 2rem;"></p>
+    <button onclick="runSpeechRecog()" style="border: transparent;padding: 0 0.5rem;">
+      Speech
+    </button>
+  </div>
+  <h3 id="output" class="hide"></h3>
+  <script>
+    let convo = {
+      messages: [{role: "system", content: "You are a fast food employee that is taking an order from a customer. Your job is to answer any question about the menu or other related things. When the customer is ready to finish their order say the word \"YIPPEE\". Only say the word YIPPE once the order is finished, never before. The menu is as follows, there are no extras to any of the items. Foods: Cheeseburger, Burger, Chicken Nuggets, French Fries, Pancakes. Drinks: Fanta, Coke, Water. Do not write in brackets, the customer can see everything you write. Do not write YIPPEE unless you are certain the customer has finished their order. Always be sure to ask again for additional foods.\n"},
+      ]
+    }
+    async function runSpeechRecog() {
+      document.getElementById("output").innerHTML = "Loading text...";
+      var output = document.getElementById('output');
+      var action = document.getElementById('action');
+      let recognization = new webkitSpeechRecognition();
+      recognization.onstart = () => {
+        action.innerHTML = "Listening...";
+      }
+      recognization.onresult = async (e) => {
+        var transcript = e.results[0][0].transcript;
+        convo["messages"].push({role: "user", content: transcript})
+
+        // console.log(JSON.stringify(convo))
+        const resp = await fetch("http://127.0.0.1:8000/convo", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(convo)
+        });
+        // console.log(await resp.json())
+        output.innerHTML = await resp.text()
+        output.classList.remove("hide")
+        action.innerHTML = "";
+      }
+      recognization.start();
+    }
+  </script>
+</body>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>
+
+</html>

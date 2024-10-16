@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Basic UI ordering system</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+  <div id="app"></div>
+
+
+  <script type="module">
+    import {h, render, Component} from 'https://esm.sh/preact@10.15.1';
+    import {useState} from 'https://esm.sh/preact@10.15.1/hooks';
+    import htm from 'https://esm.sh/htm@3.1.1';
+    import Modal from "{{ url_for('static', path='/modal.js') }}";
+
+    const html = htm.bind(h);
+
+    function Bottom(props) {
+      async function send() {
+        console.log(props.foods)
+        console.log(props.drinks)
+        const out = {"foods": props.foods, "drinks": props.drinks}
+        let resp = await fetch(
+          "http://127.0.0.1:8000/basic", {
+          method: "POST",
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(out)
+        }
+        )
+      }
+      return html`
+        <div class="w-screen fixed bottom-0 flex flex-col items-center justify-center bg-white h-20">
+          <hr class="w-full border-t"/>
+          <div class="flex flex-row">
+            <button onclick=${() => props.togM(!props.M)} class="p-4 rounded-md border-blue-500 border-2 bg-blue-300 m-1">View Cart</button>
+            <button onclick=${send} class="p-4 rounded-md border-red-500 border-2 bg-red-300 m-1">Send Order</button>
+          </div>
+        </div>
+      `
+    }
+
+    class Food extends Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          list: this.props.list,
+          setlist: this.props.setlist,
+          name: this.props.name
+        }
+      }
+
+      submit = () => {
+        // console.log(this.props.list)
+        this.props.setlist(this.props.list.concat(this.state.name))
+        // console.log(this.props.list)
+      }
+
+      render() {
+        return html`
+          <div onclick="${this.submit}" class="p-3 m-1 h-16 shadow-xl w-[0.9fr] h-32 flex items-center justify-center text-center rounded-md border-neutral-300 border-2 hover:bg-slate-50 active:bg-slate-100"> 
+
+            <h2 class="text-xl bottom-0 unselectable ">${this.state.name}</h2>
+          </div>
+        `
+      }
+
+
+    }
+
+    function Root() {
+      const [drinks, setDrinks] = useState([]);
+      const [foods, setFoods] = useState([]);
+      const [showModal, setShowModal] = useState(false);
+
+      const items = ["chicken", "steak", "French Fries", "Chicken Nuggets", "Fish Filet"]
+
+      return html`
+        <div class="space-y-2 h-screen w-screen h-screen">
+          <p class="text-center text-gray-400">Tip: tap on an item to add it to your cart!</p>
+          <div class="itemgrid overflow-auto h-[calc(100vh-8rem)]">
+            ${items.map(item => html`<${Food} name=${item} setlist=${setFoods} list=${foods}  />`)}
+          </div>
+
+          <${Bottom} foods=${foods} drinks=${drinks} togM=${setShowModal} M=${showModal}/>
+          <${Modal} show=${showModal} togM=${setShowModal} foods=${foods} drinks=${drinks} setFoods=${setFoods} setDrinks=${setDrinks}/>
+        </div>
+      `
+    }
+
+    const App = () => html`
+      <div class="h-screen overflow-y-show">
+        <${Root}/>
+      </div>
+    `
+    render(html`<${App}/>`, document.getElementById('app'));
+  </script>
+
+
+</body>
+<style>
+  .unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .itemgrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    width: 100%;
+    grid-auto-rows: min-content;
+    /* height: 8rem */
+  }
+</style>
+
+</html>
