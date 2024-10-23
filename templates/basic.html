@@ -27,7 +27,7 @@
         console.log(props.drinks)
         const out = {"foods": props.foods, "drinks": props.drinks}
         let resp = await fetch(
-          "http://127.0.0.1:8000/basic", {
+          "/basic", {
           method: "POST",
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(out)
