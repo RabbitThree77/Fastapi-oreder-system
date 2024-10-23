@@ -8,11 +8,17 @@ from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
 import os, uvicorn
 import discord, asyncio
+from fastapi.middleware.cors import CORSMiddleware
+
+
+
 
 load_dotenv()
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
 
 token = os.getenv("DISCORD")
 client = InferenceClient(api_key=os.getenv("TOKEN"))
