@@ -7,14 +7,16 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
 import os
+import discord, asyncio
 
 load_dotenv()
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+token = os.getenv("TOKEN")
 client = InferenceClient(api_key=os.getenv("TOKEN"))
-
+c_id = 1298667987787845727
 
 def addToDB(obj):
     data = None
