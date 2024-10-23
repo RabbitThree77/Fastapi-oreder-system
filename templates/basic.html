@@ -87,7 +87,7 @@
           <div class="itemgrid overflow-auto h-[calc(100vh-8rem)]">
             ${items.map(item => html`<${Food} name=${item} setlist=${setFoods} list=${foods}  />`)}
             <hr>
-            ${drinkItems.map(item => html`<${Food} name=${item} setlist=${setDoods} list=${drinks}  />`)}
+            ${drinkItems.map(item => html`<${Food} name=${item} setlist=${setDrinks} list=${drinks}  />`)}
           </div>
 
           <${Bottom} foods=${foods} drinks=${drinks} togM=${setShowModal} M=${showModal}/>
