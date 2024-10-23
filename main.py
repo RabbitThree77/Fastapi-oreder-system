@@ -6,7 +6,7 @@ from pydantic import BaseModel, Json
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
-import os
+import os, uvicorn
 import discord, asyncio
 
 load_dotenv()
@@ -14,9 +14,19 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-token = os.getenv("TOKEN")
+token = os.getenv("DISCORD")
 client = InferenceClient(api_key=os.getenv("TOKEN"))
 c_id = 1298667987787845727
+
+
+class DiscordBot(discord.Client):
+    async def on_ready(self):
+        print(f"logged in as {self.user}")
+
+
+bot = DiscordBot(intents=discord.Intents.default())
+
+print(bot.get_channel(c_id))
 
 def addToDB(obj):
     data = None
@@ -46,6 +56,8 @@ async def orderTooJson(convo):
     )
     js = json.loads(obj.content)
     addToDB(js)
+    channel = bot.get_channel(c_id)
+    await channel.send(js)
 
 
 async def newAIResp(convo):
@@ -111,6 +123,8 @@ async def basic(order: Order):
     item = OrderDB(method="basic", **order.model_dump())
     print(item.model_dump())
     addToDB(item.model_dump())
+    channel = bot.get_channel(c_id)
+    await channel.send(str(item.model_dump()))
 
     return None
 
@@ -120,9 +134,12 @@ async def basic(order: Order):
 async def conversation(order: AIMessages):
     m = [i.model_dump() for i in order.messages]
     out = await newAIResp(m)
+    c = 0
     if "yippee" in out.content.lower():
+        c = 1
         await orderTooJson(m)
-    return {"message": out.content}
+        # return {"message": "Your order was complted!", "cont": 1}
+    return {"message": out.content, "cont": c}
 
 
 @app.post("/ai")
@@ -150,3 +167,23 @@ async def aiUI(request: Request):
 @app.get("/app/basic")
 async def basicUI(request: Request):
     return templates.TemplateResponse(request=request, name="basic.html", context={})
+
+async def run_fastapi():
+    config = uvicorn.Config(app, host="127.0.0.1", port=8000)
+    server = uvicorn.Server(config)
+    await server.serve()
+
+# Main function to run both FastAPI and Discord bot concurrently
+async def main():
+    # Run FastAPI and Discord bot concurrently
+    await asyncio.gather(
+        bot.start(token),
+        run_fastapi()
+    )
+
+    await bot.start(token)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
+

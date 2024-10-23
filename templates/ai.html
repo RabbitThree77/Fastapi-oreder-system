@@ -4,15 +4,15 @@
   <title>Speech to text</title>
 </head>
 
-<body>
-  <div class="speaker"
-    style="display: flex;justify-content: space-between;width: 13rem;box-shadow: 0 0 13px #0000003d;border-radius: 5px;">
-    <p id="action" style="color: grey;font-weight: 800; padding: 0; padding-left: 2rem;"></p>
-    <button onclick="runSpeechRecog()" style="border: transparent;padding: 0 0.5rem;">
+<body style="font-family: Arial, sans-serif; padding-top:10vh; font-size:2vh">
+  <div class="speaker" style="text-align: center">
+    <p id="action" ></p>
+    <button onclick="runSpeechRecog()" style="all: unset; font-size: 3vh; border-style:solid; padding:0.5vw; border-radius: 25px;border-width:1px">
       Speech
     </button>
+    <h3 id="output" class="hide"></h3>
   </div>
-  <h3 id="output" class="hide"></h3>
+
   <script>
     let convo = {
       messages: [{role: "system", content: "You are a fast food employee that is taking an order from a customer. Your job is to answer any question about the menu or other related things. When the customer is ready to finish their order say the word \"YIPPEE\". Only say the word YIPPE once the order is finished, never before. The menu is as follows, there are no extras to any of the items. Foods: Cheeseburger, Burger, Chicken Nuggets, French Fries, Pancakes. Drinks: Fanta, Coke, Water. Do not write in brackets, the customer can see everything you write. Do not write YIPPEE unless you are certain the customer has finished their order. Always be sure to ask again for additional foods.\n"},
@@ -36,8 +36,13 @@
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify(convo)
         });
-        // console.log(await resp.json())
-        output.innerHTML = await resp.text()
+        // console.log(await resp.json()
+        let val = await JSON.parse(await resp.text())
+        output.innerHTML = val.message
+        console.log(val)
+        if (val.cont === 1) {
+          location.href = "/app"
+        }
         output.classList.remove("hide")
         action.innerHTML = "";
       }

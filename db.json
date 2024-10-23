@@ -49,6 +49,193 @@
                     "amount": 1
                 }
             ]
+        },
+        {
+            "foods": [
+                "Cheeseburger",
+                "Chicken Nuggets"
+            ],
+            "drinks": [],
+            "method": "basic"
+        },
+        {
+            "foods": [
+                "burger",
+                "burger",
+                "burger",
+                "Chicken Nuggets"
+            ],
+            "drinks": [],
+            "method": "basic"
+        },
+        {
+            "foods": [
+                "burger",
+                "burger",
+                "burger",
+                "Chicken Nuggets",
+                "burger",
+                "burger"
+            ],
+            "drinks": [],
+            "method": "basic"
+        },
+        {
+            "foods": [
+                "Cheeseburger",
+                "burger",
+                "Chicken Nuggets"
+            ],
+            "drinks": [],
+            "method": "basic"
+        },
+        {
+            "foods": [
+                "burger",
+                "burger",
+                "Chicken Nuggets"
+            ],
+            "drinks": [
+                "Water",
+                "Fanta"
+            ],
+            "method": "basic"
+        },
+        {
+            "foods": [
+                "Cheeseburger",
+                "burger",
+                "Chicken Nuggets"
+            ],
+            "drinks": [
+                "Water"
+            ],
+            "method": "basic"
+        },
+        {
+            "foods": [],
+            "drinks": [
+                "Mountain Dew",
+                "Mountain Dew"
+            ],
+            "method": "basic"
+        },
+        {
+            "foods": [],
+            "drinks": [
+                "Mountain Dew",
+                "Mountain Dew"
+            ],
+            "method": "basic"
+        },
+        {
+            "foods": [],
+            "drinks": [
+                "Mountain Dew",
+                "Mountain Dew"
+            ],
+            "method": "basic"
+        },
+        {
+            "foods": [],
+            "drinks": [
+                "Mountain Dew",
+                "Mountain Dew"
+            ],
+            "method": "basic"
+        },
+        {
+            "foods": [
+                {
+                    "name": "Chicken Nuggets",
+                    "amount": 1
+                }
+            ],
+            "drinks": [
+                {
+                    "name": "Coke",
+                    "amount": 1
+                }
+            ]
+        },
+        {
+            "foods": [
+                {
+                    "name": "Burger",
+                    "amount": 2
+                }
+            ],
+            "drinks": []
+        },
+        {
+            "foods": [
+                {
+                    "name": "Pancakes",
+                    "amount": 1
+                }
+            ],
+            "drinks": [
+                {
+                    "name": "Water",
+                    "amount": 1
+                }
+            ]
+        },
+        {
+            "foods": [
+                {
+                    "name": "Chicken Nuggets",
+                    "amount": 1
+                }
+            ],
+            "drinks": [
+                {
+                    "name": "Water",
+                    "amount": 1
+                }
+            ]
+        },
+        {
+            "foods": [
+                {
+                    "name": "Pancakes",
+                    "amount": 1
+                }
+            ],
+            "drinks": [
+                {
+                    "name": "Water",
+                    "amount": 1
+                }
+            ]
+        },
+        {
+            "foods": [
+                {
+                    "name": "Chicken Nuggets",
+                    "amount": 1
+                }
+            ],
+            "drinks": [
+                {
+                    "name": "Coke",
+                    "amount": 1
+                }
+            ]
+        },
+        {
+            "foods": [
+                {
+                    "name": "Chicken Nuggets",
+                    "amount": 1
+                }
+            ],
+            "drinks": [
+                {
+                    "name": "Fanta",
+                    "amount": 1
+                }
+            ]
         }
     ]
 }
