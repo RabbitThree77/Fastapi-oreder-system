@@ -17,6 +17,38 @@
             ],
             "drinks": [],
             "method": "basic"
+        },
+        {
+            "foods": [
+                {
+                    "name": "Pancakes",
+                    "amount": 2
+                }
+            ],
+            "drinks": [
+                {
+                    "name": "Coke",
+                    "amount": 1
+                }
+            ]
+        },
+        {
+            "foods": [
+                {
+                    "name": "French Fries",
+                    "amount": 1
+                },
+                {
+                    "name": "Pancakes",
+                    "amount": 1
+                }
+            ],
+            "drinks": [
+                {
+                    "name": "Coke",
+                    "amount": 1
+                }
+            ]
         }
     ]
 }

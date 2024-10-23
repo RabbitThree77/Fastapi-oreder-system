@@ -78,13 +78,16 @@
       const [foods, setFoods] = useState([]);
       const [showModal, setShowModal] = useState(false);
 
-      const items = ["chicken", "steak", "French Fries", "Chicken Nuggets", "Fish Filet"]
+      const items = ["Cheeseburger", "burger", "Chicken Nuggets", "French Fries", "Pancakes"]
+      const drinkItems = ["Fanta", "Coke", "Water", "Mountain Dew"]
 
       return html`
         <div class="space-y-2 h-screen w-screen h-screen">
           <p class="text-center text-gray-400">Tip: tap on an item to add it to your cart!</p>
           <div class="itemgrid overflow-auto h-[calc(100vh-8rem)]">
             ${items.map(item => html`<${Food} name=${item} setlist=${setFoods} list=${foods}  />`)}
+            <hr>
+            ${drinkItems.map(item => html`<${Food} name=${item} setlist=${setDoods} list=${drinks}  />`)}
           </div>
 
           <${Bottom} foods=${foods} drinks=${drinks} togM=${setShowModal} M=${showModal}/>

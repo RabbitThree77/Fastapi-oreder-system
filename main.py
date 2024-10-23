@@ -8,7 +8,6 @@ from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
 import os
 
-
 load_dotenv()
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -25,6 +24,43 @@ def addToDB(obj):
 
     with open("db.json", "w") as f:
         json.dump(data, f, indent=4)
+
+
+async def orderTooJson(convo):
+    inp = convo
+    con = [{"role": "system", "content": "Your job is to turn a string of messages between a fast food worker and a customer into a JSON object with this format {foods: [{name: \"\", amount:int}], drinks: []} only answer with the object, do not even put it in a code block or include any message, that is very important. here is the conversation: " + str(convo)}, {"role": "user", "content": ""}]
+    obj = (
+        (
+            client.chat.completions.create(
+                model="Qwen/Qwen2.5-72B-Instruct",
+                messages=con,
+                temperature=0.5,
+                max_tokens=1024,
+                top_p=0.7,
+            )
+        )
+            .choices[0]
+            .message
+    )
+    js = json.loads(obj.content)
+    addToDB(js)
+
+
+async def newAIResp(convo):
+    inp = convo
+    return (
+        (
+            client.chat.completions.create(
+                model="Qwen/Qwen2.5-72B-Instruct",
+                messages=inp,
+                temperature=0.5,
+                max_tokens=1024,
+                top_p=0.7,
+            )
+        )
+            .choices[0]
+            .message
+    )
 
 
 async def makeAIResp(msg):
@@ -45,8 +81,8 @@ async def makeAIResp(msg):
                 top_p=0.7,
             )
         )
-        .choices[0]
-        .message
+            .choices[0]
+            .message
     )
 
 
@@ -80,7 +116,11 @@ async def basic(order: Order):
 # ai assistant conversation lol
 @app.post("/convo")
 async def conversation(order: AIMessages):
-    return {"message": order.messages[-1].content}
+    m = [i.model_dump() for i in order.messages]
+    out = await newAIResp(m)
+    if "yippee" in out.content.lower():
+        await orderTooJson(m)
+    return {"message": out.content}
 
 
 @app.post("/ai")
@@ -89,7 +129,8 @@ async def ai(order):
     # print(out)
     # data = json.load(out.content)
     # item = OrderDB(
-    #     method="AI", foods=data["foods"], drinks=data["drinks"], others=data["others"]
+    # method="AI", foods=data["foods"], drinks=data["drinks"], others=data["others"]
+    # )
 
     return None  # out
 

@@ -37,8 +37,11 @@ export default function Modal(props) {
                   <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Your Cart</h3>
                   <div class="mt-2">
                     <ul>
-                      ${props.foods.map(food => html`<li>${food}<button onclick=${() => { removeFirstInstance(food, props.foods, props.setFoods) }}>Remove</button></li>`)}
-                    </ul> 
+                      ${props.foods.map(food => html`<li>${food}<button style="color:  red; margin-left: 1vw" onclick=${() => { removeFirstInstance(food, props.foods, props.setFoods) }}>  Remove</button></li>`)}
+                    </ul>
+                    <ul>
+                      ${props.drinks.map(drink => html`<li>${drink}<button style="color:  red; margin-left: 1vw" onclick=${() => { removeFirstInstance(drink, props.drinks, props.setDrinks) }}>  Remove</button></li>`)}
+                    </ul>
                     <p class="text-sm text-gray-500"></p>
                   </div>
                 </div>
