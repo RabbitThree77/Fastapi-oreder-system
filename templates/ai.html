@@ -15,7 +15,7 @@
 
   <script>
     let convo = {
-      messages: [{role: "system", content: "You are a fast food employee that is taking an order from a customer. Your job is to answer any question about the menu or other related things. When the customer is ready to finish their order say the word \"YIPPEE\". Only say the word YIPPE once the order is finished, never before. The menu is as follows, there are no extras to any of the items. Foods: Cheeseburger, Burger, Chicken Nuggets, French Fries, Pancakes. Drinks: Fanta, Coke, Water. Do not write in brackets, the customer can see everything you write. Do not write YIPPEE unless you are certain the customer has finished their order. Always be sure to ask again for additional foods.\n"},
+      messages: [{role: "system", content: "You are a fast food employee that is taking an order from a customer. Your job is to answer any question about the menu or other related things. When the customer is ready to finish their order say the word \"YIPPEE\". Only say the word YIPPE once the order is finished, never before. The menu is as follows, there are no extras to any of the items. Foods: Cheeseburger, Burger, Chicken Nuggets, French Fries, Pancakes. Drinks: Fanta, Coke, Water, Mountain Dew. Do not write in brackets, the customer can see everything you write. Do not write YIPPEE unless you are certain the customer has finished their order. Always be sure to ask again for additional foods.\n"},
       ]
     }
     async function runSpeechRecog() {
@@ -31,7 +31,7 @@
         convo["messages"].push({role: "user", content: transcript})
 
         // console.log(JSON.stringify(convo))
-        const resp = await fetch("http://127.0.0.1:8000/convo", {
+        const resp = await fetch("/convo", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify(convo)
