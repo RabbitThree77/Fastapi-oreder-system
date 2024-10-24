@@ -31,6 +31,8 @@
         // Push the spoken phrase to the conversation object
         convo["messages"].push({role: "user", content: phrase});
 
+        document.getElementById("output").innerHTML = "Getting server response";
+
         // Send the conversation to the server
         const resp = await fetch("/convo", {
           method: "POST",
