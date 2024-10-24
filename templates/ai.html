@@ -2,6 +2,7 @@
 
 <head>
   <title>Speech to text</title>
+   <script src="https://cdn.jsdelivr.net/npm/annyang@2.6.1/dist/annyang.min.js"></script>
 </head>
 
 <body style="font-family: Arial, sans-serif; padding-top:10vh; font-size:2vh">
@@ -19,35 +20,49 @@
       ]
     }
     async function runSpeechRecog() {
-      document.getElementById("output").innerHTML = "Loading text...";
-      var output = document.getElementById('output');
-      var action = document.getElementById('action');
-      let recognization = new webkitSpeechRecognition();
-      recognization.onstart = () => {
-        action.innerHTML = "Listening...";
-      }
-      recognization.onresult = async (e) => {
-        var transcript = e.results[0][0].transcript;
-        convo["messages"].push({role: "user", content: transcript})
+  document.getElementById("output").innerHTML = "Loading text...";
+  var output = document.getElementById('output');
+  var action = document.getElementById('action');
 
-        // console.log(JSON.stringify(convo))
+  if (annyang) {
+    // Define the commands
+    var commands = {
+      '*phrase': async function(phrase) {
+        // Push the spoken phrase to the conversation object
+        convo["messages"].push({role: "user", content: phrase});
+
+        // Send the conversation to the server
         const resp = await fetch("/convo", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify(convo)
         });
-        // console.log(await resp.json()
-        let val = await JSON.parse(await resp.text())
-        output.innerHTML = val.message
-        console.log(val)
+
+        // Parse the server response
+        let val = await resp.json(); // Use resp.json() instead of manually parsing text
+        output.innerHTML = val.message;
+        console.log(val);
+
+        // Redirect if necessary
         if (val.cont === 1) {
-          location.href = "/app"
+          location.href = "/app";
         }
-        output.classList.remove("hide")
+
+        // Display the output
+        output.classList.remove("hide");
         action.innerHTML = "";
       }
-      recognization.start();
-    }
+    };
+
+    // Add commands to annyang and start listening
+    annyang.addCommands(commands);
+    annyang.start({ continuous: true }); // Ensure it continuously listens for input
+
+  } else {
+    alert('Speech recognition is not supported in this browser.');
+  }
+}
+
   </script>
 </body>
 
