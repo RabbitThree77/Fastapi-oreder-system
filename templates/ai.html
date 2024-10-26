@@ -5,10 +5,12 @@
    <script src="https://cdn.jsdelivr.net/npm/annyang@2.6.1/dist/annyang.min.js"></script>
 </head>
 
-<body style="font-family: Arial, sans-serif; padding-top:10vh; font-size:2vh">
-  <div class="speaker" style="text-align: center">
+<body style="font-family: Arial, sans-serif;  font-size:2vh">
+  <h1 style="text-align:center">AI ordering system</h1>
+  <div class="speaker" style="text-align: center; padding-top:5vh;">
+
     <p id="action"></p>
-    <button onclick="runSpeechRecog()" style="all: unset; font-size: 3vh; border-style:solid; padding:0.5vw; border-radius: 25px;border-width:1px">
+    <button onclick="runSpeechRecog()" style="all: unset; font-size: 3vh; border-style:solid; padding:0.5vw; border-radius: 25px;border-width:1px" onMouseOver="this.style.transform =  'scale(1.1)'" onMouseOut="this.style.transform =  'scale(1)'">
       Speak
     </button>
     <h3 id="output" class="hide"></h3>
