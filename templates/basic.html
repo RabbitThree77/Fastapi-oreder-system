@@ -33,14 +33,15 @@
           body: JSON.stringify(out)
         }
         )
+        alert("Your order has been sent, you will now move on to the AI version!")
         location.href = "/app/ai"
       }
       return html`
         <div class="w-screen fixed bottom-0 flex flex-col items-center justify-center bg-white h-20">
           <hr class="w-full border-t"/>
           <div class="flex flex-row">
-            <button onclick=${() => props.togM(!props.M)} class="p-4 rounded-md border-blue-500 border-2 bg-blue-300 m-1">View Cart</button>
-            <button onclick=${send} class="p-4 rounded-md border-red-500 border-2 bg-red-300 m-1">Send Order</button>
+            <button onclick=${() => props.togM(!props.M)} class="p-4 rounded-md border-blue-500 border-2 bg-blue-300 m-1">View Cart (${props.foods && props.drinks ? props.foods.length + props.drinks.length : 0})</button>
+            <button onclick=${send} class="p-4 rounded-md border-red-500 border-2 bg-red-300 m-1">Send Order (continue to AI version)</button>
           </div>
         </div>
       `
@@ -64,7 +65,7 @@
 
       render() {
         return html`
-          <div onclick="${this.submit}" class="p-3 m-1 h-16 shadow-xl w-[0.9fr] h-32 flex items-center justify-center text-center rounded-md border-neutral-300 border-2 hover:bg-slate-50 active:bg-slate-100"> 
+          <div onclick="${this.submit}" class="p-3 m-1 h-16 shadow-xl w-[0.9fr] h-32 flex items-center justify-center text-center rounded-md border-neutral-300 border-2 hover:bg-slate-50 active:scale-105">
 
             <h2 class="text-xl bottom-0 unselectable ">${this.state.name}</h2>
           </div>
@@ -79,7 +80,7 @@
       const [foods, setFoods] = useState([]);
       const [showModal, setShowModal] = useState(false);
 
-      const items = ["Cheeseburger", "burger", "Chicken Nuggets", "French Fries", "Pancakes"]
+      const items = ["Cheeseburger", "Burger", "Chicken Nuggets", "French Fries", "Pancakes"]
       const drinkItems = ["Fanta", "Coke", "Water", "Mountain Dew"]
 
       return html`
