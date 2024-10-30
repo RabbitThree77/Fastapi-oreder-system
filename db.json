@@ -236,6 +236,115 @@
                     "amount": 1
                 }
             ]
+        },
+        {
+            "foods": [
+                {
+                    "name": "Pancakes",
+                    "amount": 1
+                }
+            ],
+            "drinks": []
+        },
+        {
+            "foods": [
+                {
+                    "name": "Pancakes",
+                    "amount": 2
+                }
+            ],
+            "drinks": []
+        },
+        {
+            "foods": [
+                {
+                    "name": "Chicken Nuggets",
+                    "amount": 1
+                }
+            ],
+            "drinks": [
+                {
+                    "name": "Fanta",
+                    "amount": 1
+                }
+            ]
+        },
+        {
+            "foods": [
+                {
+                    "name": "Pancakes",
+                    "amount": 3
+                }
+            ],
+            "drinks": [
+                {
+                    "name": "Mountain Dew",
+                    "amount": 1
+                }
+            ]
+        },
+        {
+            "foods": [
+                {
+                    "name": "Chicken Nuggets",
+                    "amount": 2
+                },
+                {
+                    "name": "French Fries",
+                    "amount": 1
+                }
+            ],
+            "drinks": [
+                {
+                    "name": "Coke",
+                    "amount": 1
+                }
+            ]
+        },
+        {
+            "foods": [],
+            "drinks": [],
+            "method": "basic"
+        },
+        {
+            "foods": [
+                "Pancakes",
+                "French Fries",
+                "Burger",
+                "Burger",
+                "Burger",
+                "Burger",
+                "Burger"
+            ],
+            "drinks": [
+                "Mountain Dew",
+                "Water",
+                "Water",
+                "Coke",
+                "Coke",
+                "Coke",
+                "Coke"
+            ],
+            "method": "basic"
+        },
+        {
+            "foods": [],
+            "drinks": [],
+            "method": "basic"
+        },
+        {
+            "foods": [
+                {
+                    "name": "Chicken Nuggets",
+                    "amount": 1
+                }
+            ],
+            "drinks": [
+                {
+                    "name": "Mountain Dew",
+                    "amount": 1
+                }
+            ]
         }
     ]
 }
